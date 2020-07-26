@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+
+  "name": "Čitelné písmo v Seznam Emailu",
+  "description": "Měním bílé, často nečitelné písmo při použití tmavých témat na Seznam Emailu na jiné.",
+  "version": "1.0.0",
+  "icons": { "128": "aktivni.png" },
+"permissions": [
+        "storage", "https://email.seznam.cz/*"
+    ],
+	"background": {
+    "scripts": ["background.js"]
+  },
+    "browser_action": {
+        "default_icon": "neaktivni.png",
+        "default_title": "Teď jsem tu jen na ozdobu..."
+    },
+    "content_scripts": [
+        {
+            "matches": [ "https://email.seznam.cz/*" ],
+			"js": ["skript.js"],
+			
+            "run_at": "document_idle"
+        }
+    ],
+	"web_accessible_resources": ["styly.css"]
+}
