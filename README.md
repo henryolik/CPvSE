@@ -3,11 +3,3 @@ Při používání tmavých témat Seznam Emailu se může stát, že odesílate
 # Instalace
 Doplněk je možné nainstalovat skrz oficiální obchody s doplňky [Chrome](https://chrome.google.com/webstore/detail/%C4%8Diteln%C3%A9-p%C3%ADsmo-v-seznam-em/iegcaloncdbbdnlfandkjgjgagkabcii), [Firefox](https://addons.mozilla.org/firefox/addon/cpvse/), [Firefox pro Android](https://addons.mozilla.org/android/addon/cpvse/), [Edge](https://microsoftedge.microsoft.com/addons/detail/aningpekdbmgmhimcemdakjhicbmbpdm) a [Opera (čeká na schválení)](https://addons.opera.com/extensions/details/citelne-pismo-v-seznam-emailu/).
 #### [Automatické rozpoznání prohlížeče](https://hnr.li/cpvse)
-## Manuální instalace
-1. stáhněte [zdrojový kód doplňku](https://github.com/henryolik/CPvSE/archive/master.zip)
-2. rozbalte soubory do nové složky
-3. ve svém prohlížeči otevřte správce doplňků
-4. povolte vývojářský režim
-5. zvolte Načíst rozbalené rozšíření/rozbalený doplněk
-6. vyberte složku s rozbalenými soubory z 2.
-7. hotovo
