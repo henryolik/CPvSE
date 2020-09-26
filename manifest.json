@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Čitelné písmo v Seznam Emailu",
-  "description": "Měním bílé, často nečitelné písmo při použití tmavých témat na Seznam Emailu na čitelné.",
+  "description": "Měním nečitelné písmo při použití tmavých témat na Seznam Emailu na čitelné.",
   "version": "1.1",
   "icons": { "128": "jenpismo.png" },
 "permissions": [
