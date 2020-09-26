@@ -8,6 +8,7 @@ chrome.runtime.onMessage.addListener(
       if(mod == 0) {
 	nacti("jenpismo");
 } else if(mod == 1) {
+	vypnout("jenpismo");
 	nacti("ipozadi");
 	} else {
 		vypnout("ipozadi");
