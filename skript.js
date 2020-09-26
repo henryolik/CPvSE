@@ -1,27 +1,31 @@
-var aktivni;
+var mod;
 
 jeAktivni();
 
 chrome.runtime.onMessage.addListener(
   function(request) {
     if (request.zprava == "klik")
-      if(aktivni != "true") {
-	loadCSS("styly");
-} else {
-	unloadCSS("styly");
+      if(mod == 0) {
+	nacti("jenpismo");
+} else if(mod == 1) {
+	nacti("ipozadi");
+	} else {
+		vypnout("ipozadi");
 	}
   });
 
 function jeAktivni() {
-chrome.storage.local.get("akt", function (result) {
-        aktivni = result.akt;
+chrome.storage.local.get("mod", function (result) {
+        mod = result.mod;
 		prvniSpusteni();
     });
 }
 
 function prvniSpusteni() {
-if(aktivni != "false") {
-	loadCSS("styly");	
+if(mod == 2) {
+	nacti("ipozadi");	
+} else if(mod != 0 || mod != "false") {
+	nacti("jenpismo");
 }
 }
 
@@ -30,22 +34,30 @@ function poslatZpravu(z) {
 }
 
 
-function loadCSS(file) {
+function nacti(co) {
   var link = document.createElement("link");
-  link.href = chrome.extension.getURL(file + '.css');
-  link.id = file;
+  link.href = chrome.extension.getURL(co + '.css');
+  link.id = co;
   link.type = "text/css";
   link.rel = "stylesheet";
   document.getElementsByTagName("head")[0].appendChild(link);
-  aktivni = "true";
-chrome.storage.local.set({"akt": "true"});
-poslatZpravu("aktivovat");
+if(co == "jenpismo") {
+	mod = 1;
+	ulozit(mod);
+} else if(co == "ipozadi") {
+	mod = 2;
+	ulozit(mod);
+}
 }
 
-function unloadCSS(file) {
-  var cssNode = document.getElementById(file);
+function vypnout(co) {
+  var cssNode = document.getElementById(co);
   cssNode && cssNode.parentNode.removeChild(cssNode);
-  aktivni = "false";
- chrome.storage.local.set({"akt": "false"});
- poslatZpravu("deaktivovat");
+  mod = 0;
+  ulozit(mod);
+}
+
+function ulozit(co) {
+	chrome.storage.local.set({"mod": co});
+	poslatZpravu(co);
 }
