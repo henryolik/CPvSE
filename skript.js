@@ -18,14 +18,27 @@ chrome.runtime.onMessage.addListener(
 function jeAktivni() {
 chrome.storage.local.get("mod", function (result) {
         mod = result.mod;
-		prvniSpusteni();
+		if(mod === undefined) {
+			// Načtení uložených dat z předchozích verzí | dočasně
+			chrome.storage.local.get("akt", function (result) {
+			mod = result.akt;
+			if(mod == "false") {
+				mod = 0;
+			} else {
+				mod = 1;
+			}
+			prvniSpusteni();
+			});
+		} else {
+			prvniSpusteni();
+		}
     });
 }
 
 function prvniSpusteni() {
 if(mod == 2) {
 	nacti("ipozadi");	
-} else if(mod != 0 || mod != "false") {
+} else if(mod == 1) {
 	nacti("jenpismo");
 }
 }
@@ -44,11 +57,10 @@ function nacti(co) {
   document.getElementsByTagName("head")[0].appendChild(link);
 if(co == "jenpismo") {
 	mod = 1;
-	ulozit(mod);
 } else if(co == "ipozadi") {
 	mod = 2;
-	ulozit(mod);
 }
+	ulozit(mod);
 }
 
 function vypnout(co) {
