@@ -1,76 +1,85 @@
-var mod;
+var mode;
 
-jeAktivni();
+loadMode();
 
-chrome.runtime.onMessage.addListener(
-  function(request) {
-    if (request.zprava == "klik")
-      if(mod == 0) {
-	nacti("jenpismo");
-} else if(mod == 1) {
-	vypnout("jenpismo");
-	nacti("ipozadi");
-	} else {
-		vypnout("ipozadi");
-	}
-  });
-
-function jeAktivni() {
-chrome.storage.local.get("mod", function (result) {
-        mod = result.mod;
-		if(mod === undefined) {
-			// Načtení uložených dat z předchozích verzí | dočasně
-			chrome.storage.local.get("akt", function (result) {
-			mod = result.akt;
-			if(mod == "false") {
-				mod = 0;
-			} else {
-				mod = 1;
-			}
-			prvniSpusteni();
-			});
-		} else {
-			prvniSpusteni();
+chrome.runtime.onMessage.addListener(function(request)
+{
+    if (request.msg == "click")
+	{
+		if(mode == 0)
+		{
+			load("grayText");
+		} 
+		else if(mode == 1)
+		{
+			unload("grayText");
+			load("gmailStyle");
 		}
-    });
+		else
+		{
+		unload("gmailStyle");
+		}
+	}
+});
+
+function loadMode()
+{
+	chrome.storage.local.get("mod", function (result)
+	{
+        mode = result.mod;
+		
+		if(mode == 2)
+		{
+			load("gmailStyle");	
+		} 
+		else if(mode == 1) 
+		{
+			load("grayText");
+		}
+		else if(mode != 0)
+		{
+			mode = 0;
+			save(mode);
+		}
+	});
 }
 
-function prvniSpusteni() {
-if(mod == 2) {
-	nacti("ipozadi");	
-} else if(mod == 1) {
-	nacti("jenpismo");
-}
-}
-
-function poslatZpravu(z) {
-	chrome.runtime.sendMessage({zprava: z});
+function sendMsg(txt) {
+	chrome.runtime.sendMessage({msg: txt});
 }
 
 
-function nacti(co) {
-  var link = document.createElement("link");
-  link.href = chrome.extension.getURL(co + '.css');
-  link.id = co;
-  link.type = "text/css";
-  link.rel = "stylesheet";
-  document.getElementsByTagName("head")[0].appendChild(link);
-if(co == "jenpismo") {
-	mod = 1;
-} else if(co == "ipozadi") {
-	mod = 2;
-}
-	ulozit(mod);
+function load(file)
+{
+	var link = document.createElement("link");
+	link.href = chrome.runtime.getURL(file + '.css');
+	link.id = file;
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	document.getElementsByTagName("head")[0].appendChild(link);
+	
+	if(file == "grayText")
+	{
+		mode = 1;
+	}
+	else if(file == "gmailStyle")
+	{
+		mode = 2;
+	}
+	
+	save(mode);
 }
 
-function vypnout(co) {
-  var cssNode = document.getElementById(co);
-  cssNode && cssNode.parentNode.removeChild(cssNode);
-  mod = 0;
-  ulozit(mod);
+function unload(file)
+{
+	var cssNode = document.getElementById(file);
+	cssNode && cssNode.parentNode.removeChild(cssNode);
+	mode = 0;
+	save(mode);
 }
 
-function ulozit(co) {
-	chrome.storage.local.set({"mod": co});
-	poslatZpravu(co);
+function save(mode)
+{
+	chrome.storage.local.set({"mod": mode});
+	sendMsg(mode);
 }
