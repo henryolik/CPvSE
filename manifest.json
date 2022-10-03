@@ -3,7 +3,7 @@
 
 	"name": "Čitelné písmo v Seznam Emailu",
 	"description": "Měním nečitelné písmo při použití tmavých témat na Seznam Emailu na čitelné.",
-	"version": "1.2",
+	"version": "1.2.1",
 	"icons": { "128": "grayText.png" },
 	
 	"permissions":

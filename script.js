@@ -32,11 +32,11 @@ function loadMode()
 		{
 			load("gmailStyle");	
 		} 
-		else if(mode == 1) 
+		else if(mode == 1 || mode != 0) 
 		{
 			load("grayText");
 		}
-		else if(mode != 0)
+		else
 		{
 			mode = 0;
 			save(mode);
