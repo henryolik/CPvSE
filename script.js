@@ -9,7 +9,7 @@ chrome.runtime.onMessage.addListener(function(request)
 		if(mode == 0)
 		{
 			load("grayText");
-		} 
+		}
 		else if(mode == 1)
 		{
 			unload("grayText");
@@ -27,12 +27,12 @@ function loadMode()
 	chrome.storage.local.get("mod", function (result)
 	{
         mode = result.mod;
-		
+
 		if(mode == 2)
 		{
-			load("gmailStyle");	
-		} 
-		else if(mode == 1 || mode != 0) 
+			load("gmailStyle");
+		}
+		else if(mode == 1 || mode != 0)
 		{
 			load("grayText");
 		}
@@ -57,7 +57,7 @@ function load(file)
 	link.type = "text/css";
 	link.rel = "stylesheet";
 	document.getElementsByTagName("head")[0].appendChild(link);
-	
+
 	if(file == "grayText")
 	{
 		mode = 1;
@@ -66,7 +66,7 @@ function load(file)
 	{
 		mode = 2;
 	}
-	
+
 	save(mode);
 }
 
